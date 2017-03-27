@@ -1,0 +1,24 @@
+/*----------------------------------------------------*/
+/* fragmt_shader.cg - fragment shader program for GPU */
+/*                                                    */
+/* sunch_nal, 2010                                    */
+/* Institute of Meteorology                           */
+/* PLA University of Science and Technology           */
+/*----------------------------------------------------*/
+
+void fragmt_shader(     float4  texCoord : TEXCOORD0,
+					out float4  color    : COLOR,
+                        uniform sampler3D volume,
+						uniform sampler1D colorTable)
+{
+	if (  texCoord.x > 1 || texCoord.x < 0
+	   || texCoord.y > 1 || texCoord.y < 0
+	   || texCoord.z > 1 || texCoord.z < 0)
+	{
+	    discard;
+	}
+	else
+	{
+	    color = tex3D(volume, texCoord.xyz);
+	}
+}

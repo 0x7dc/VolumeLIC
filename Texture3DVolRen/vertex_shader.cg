@@ -1,0 +1,29 @@
+/*----------------------------------------------------*/
+/* vertex_shader.cg - vertex shader program for GPU   */
+/*                                                    */
+/* sunch_nal, 2010                                    */
+/* Institute of Meteorology                           */
+/* PLA University of Science and Technology           */
+/*----------------------------------------------------*/
+
+struct VertexIn
+{
+    float4 position : POSITION;
+};
+
+struct VertexOut
+{
+    float4 position : POSITION;
+	float4 texCoord : TEXCOORD0;
+};
+
+VertexOut vertex_shader(VertexIn pIn,
+						uniform float4x4 modelViewInvs,
+                        uniform float4x4 modelViewProj)
+{
+    VertexOut pOut;
+	pOut.position = mul(modelViewProj, pIn.position);
+	pOut.texCoord = mul(modelViewInvs, pIn.position);
+	 
+	return pOut;
+}
